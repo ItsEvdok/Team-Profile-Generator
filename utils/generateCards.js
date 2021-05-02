@@ -50,7 +50,7 @@ function showInternData(members) {
     <div class="info">
         <p> ID: ${intern.id} </p>
         <p> Email: ${intern.email} </p>
-        <p> Office: ${intern.school} </p>
+        <p> School: ${intern.school} </p>
     </div>
     </div>
     `;
@@ -71,7 +71,7 @@ function showEngineerData(members) {
     <div class="info">
         <p> ID: ${engineer.id} </p>
         <p> Email: ${engineer.email} </p>
-        <p> Office: ${engineer.github} </p>
+        <p> GitHub: ${engineer.github} </p>
     </div>
     </div>
     `;
@@ -94,11 +94,10 @@ module.exports = templateData => {
         <header class="header">
             <h1> Team Portfolio Generator</h1>
         </header>
-            ${getManagerData(templateData)}
-            ${showMemberData(templateData)}
         <main>
             <div id="container" class="container">
-                
+                ${getManagerData(templateData)}
+                ${showMemberData(templateData)}
             </div>
         </main>
     </body>
