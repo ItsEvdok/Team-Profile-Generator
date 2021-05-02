@@ -3,12 +3,10 @@ const Engineer = require('../lib/Engineer');
 const Intern = require('../lib/Intern');
 
 function getManagerData(showManagerData) {
-    if (!showManagerData) {
-        return '';
-    }
 
     const{name, id, email, officeNumber} = showManagerData;
     const manager = new Manager(name, id, email, officeNumber);
+    console.log(manager);
 
     return `
     <div class="card">
@@ -26,35 +24,21 @@ function getManagerData(showManagerData) {
     `;
 };
 
-function getEngineerData(showEngineerData) {
-    if(!showEngineerData) {
-        return '';
+const showMemberData = memberArr => {
+    const {members} = memberArr;
+    for(i = 0; i < members.length; i++){
+        if(members[i].school){
+            return showInternData(members[i]);
+        } else if(members[i].github){
+            return showEngineerData(members[i]);
+        }
     }
-    const{name, id, email, github} = showEngineerData;
-    const engineer = new Engineer(name, id, email, github);
-
-    return `
-    <div class="card">
-    <div class="name">
-        <h2> ${engineer.name} </h2>
-        <h2> Engineer </h2>
-    </div>
-
-    <div class="info">
-        <p> ID: ${engineer.id} </p>
-        <p> Email: ${engineer.email} </p>
-        <p> GitHub: ${engineer.github} </p>
-    </div>
-    </div>
-    `;
 };
 
-function getInternData(showInternData) {
-    if(!showInternData) {
-        return '';
-    }
-    const{name, id, email, school} = showInternData;
+function showInternData(members) {
+    const{name, id, email, school} = members;
     const intern = new Intern(name, id, email, school);
+    console.log(intern);
 
     return `
     <div class="card">
@@ -66,20 +50,35 @@ function getInternData(showInternData) {
     <div class="info">
         <p> ID: ${intern.id} </p>
         <p> Email: ${intern.email} </p>
-        <p> School: ${intern.school} </p>
+        <p> Office: ${intern.school} </p>
     </div>
     </div>
     `;
 };
 
-function templateData(data) {
-    console.log(data, 'Template data');
-    const {managerData, teamData} = data;
-    // dataArr.push(data);
-    // console.log(dataArr, 'dataArr');
+function showEngineerData(members) {
+    const{name, id, email, github} = members;
+    const engineer = new Engineer(name, id, email, github);
+    console.log(engineer);
 
-    // const{manager, engineer, intern} = data;
-    // console.log(manager, engineer, intern);
+    return `
+    <div class="card">
+    <div class="name">
+        <h2> ${engineer.name} </h2>
+        <h2> Engineer</h2>
+    </div>
+
+    <div class="info">
+        <p> ID: ${engineer.id} </p>
+        <p> Email: ${engineer.email} </p>
+        <p> Office: ${engineer.github} </p>
+    </div>
+    </div>
+    `;
+};
+
+module.exports = templateData => {
+    console.log(templateData, 'Template data');
 
     return `
     <!DOCTYPE html>
@@ -95,21 +94,14 @@ function templateData(data) {
         <header class="header">
             <h1> Team Portfolio Generator</h1>
         </header>
-
+            ${getManagerData(templateData)}
+            ${showMemberData(templateData)}
         <main>
             <div id="container" class="container">
-                ${getManagerData(managerData)}
-                ${getEngineerData(teamData)}
+                
             </div>
         </main>
     </body>
     </html>
     `;
-};
-
-module.exports = {
-    getManagerData,
-    getEngineerData,
-    getInternData,
-    templateData
 };
