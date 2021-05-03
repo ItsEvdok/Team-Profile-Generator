@@ -18,7 +18,7 @@ function showManagerData(showManagerData) {
 
     <div class="info">
         <p> ID: ${manager.id} </p>
-        <p> Email: ${manager.email} </p>
+        <p> Email: <a href = "mailto: ${manager.email}">${manager.email}</a> </p>
         <p> Office: ${manager.officeNumber} </p>
     </div>
     </div>
@@ -41,7 +41,7 @@ const showTeamData = memberArr => {
         
                 <div class="info">
                     <p> ID: ${intern.id} </p>
-                    <p> Email: ${intern.email} </p>
+                    <p> Email: <a href = "mailto: ${intern.email}">${intern.email}</a> </p>
                     <p> School: ${intern.school} </p>
                 </div>
                 </div>
@@ -59,8 +59,8 @@ const showTeamData = memberArr => {
         
                 <div class="info">
                     <p> ID: ${engineer.id} </p>
-                    <p> Email: ${engineer.email} </p>
-                    <p> Github: ${engineer.github} </p>
+                    <p> Email: <a href = "mailto: ${engineer.email}">${engineer.email}</a> </p>
+                    <p> Github: <a href:"https://github.com/${engineer.github}">${engineer.github}</a> </p>
                 </div>
                 </div>
         `)

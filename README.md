@@ -1,5 +1,7 @@
 # Team Profile Generator
 ---
+<img width="1440" alt="Screen Shot 2021-05-03 at 12 16 52 AM" src="https://user-images.githubusercontent.com/78257029/116840727-fb0f4400-aba4-11eb-8472-ea9005b877d2.png">
+
 ## Description
 
 Based on user inputs, generators an HTML page containing team members.
@@ -7,6 +9,8 @@ Based on user inputs, generators an HTML page containing team members.
 ## Table of Contents
 
 [Installation](#installation)
+
+[Test](#test)
 
 [Usage](#usage)
 
@@ -19,6 +23,12 @@ Based on user inputs, generators an HTML page containing team members.
 To install necessary dependencies, run the following command:
 
     npm i
+
+## Tests
+
+To run tests, run the following command:
+
+    npm tests
 
 ## Usage
 
