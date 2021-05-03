@@ -2,11 +2,12 @@ const Manager = require('../lib/Manager');
 const Engineer = require('../lib/Engineer');
 const Intern = require('../lib/Intern');
 
-function getManagerData(showManagerData) {
+const membersArr = [];
+
+function showManagerData(showManagerData) {
 
     const{name, id, email, officeNumber} = showManagerData;
     const manager = new Manager(name, id, email, officeNumber);
-    console.log(manager);
 
     return `
     <div class="card">
@@ -24,61 +25,56 @@ function getManagerData(showManagerData) {
     `;
 };
 
-const showMemberData = memberArr => {
-    const {members} = memberArr;
-    for(i = 0; i < members.length; i++){
-        if(members[i].school){
-            return showInternData(members[i]);
-        } else if(members[i].github){
-            return showEngineerData(members[i]);
-        }
+const showTeamData = memberArr => {
+    
+    const interns = memberArr.members.filter(member => member.school)
+    const engineers = memberArr.members.filter(member => member.github)
+
+    const templateForInterns = []
+    for (let intern of interns) {
+        templateForInterns.push(`
+                <div class="card">
+                <div class="name">
+                    <h2> ${intern.name} </h2>
+                    <h2> Intern </h2>
+                </div>
+        
+                <div class="info">
+                    <p> ID: ${intern.id} </p>
+                    <p> Email: ${intern.email} </p>
+                    <p> School: ${intern.school} </p>
+                </div>
+                </div>
+        `)
+    }
+
+    const templateForEngineers = []
+    for (let engineer of engineers) {
+        templateForEngineers.push(`
+                <div class="card">
+                <div class="name">
+                    <h2> ${engineer.name} </h2>
+                    <h2> Engineer </h2>
+                </div>
+        
+                <div class="info">
+                    <p> ID: ${engineer.id} </p>
+                    <p> Email: ${engineer.email} </p>
+                    <p> Github: ${engineer.github} </p>
+                </div>
+                </div>
+        `)
+    }
+
+    return {
+        templateForEngineers: templateForEngineers.join(""),
+        templateForInterns: templateForInterns.join("")
     }
 };
 
-function showInternData(members) {
-    const{name, id, email, school} = members;
-    const intern = new Intern(name, id, email, school);
-    console.log(intern);
-
-    return `
-    <div class="card">
-    <div class="name">
-        <h2> ${intern.name} </h2>
-        <h2> Intern </h2>
-    </div>
-
-    <div class="info">
-        <p> ID: ${intern.id} </p>
-        <p> Email: ${intern.email} </p>
-        <p> School: ${intern.school} </p>
-    </div>
-    </div>
-    `;
-};
-
-function showEngineerData(members) {
-    const{name, id, email, github} = members;
-    const engineer = new Engineer(name, id, email, github);
-    console.log(engineer);
-
-    return `
-    <div class="card">
-    <div class="name">
-        <h2> ${engineer.name} </h2>
-        <h2> Engineer</h2>
-    </div>
-
-    <div class="info">
-        <p> ID: ${engineer.id} </p>
-        <p> Email: ${engineer.email} </p>
-        <p> GitHub: ${engineer.github} </p>
-    </div>
-    </div>
-    `;
-};
-
 module.exports = templateData => {
-    console.log(templateData, 'Template data');
+
+    const memberTemplates = showTeamData(templateData)
 
     return `
     <!DOCTYPE html>
@@ -96,8 +92,9 @@ module.exports = templateData => {
         </header>
         <main>
             <div id="container" class="container">
-                ${getManagerData(templateData)}
-                ${showMemberData(templateData)}
+                ${showManagerData(templateData)}
+                ${memberTemplates.templateForEngineers}
+                ${memberTemplates.templateForInterns}
             </div>
         </main>
     </body>
